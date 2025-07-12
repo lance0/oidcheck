@@ -27,6 +27,8 @@ dependencies = [
     "msal",
     "pydantic",
     "pydantic-settings",
+    "flask-limiter",
+    "flask-wtf",
 ]
 
 [project.urls]
@@ -37,5 +39,4 @@ dependencies = [
 oidcheck = "oidcheck.main:main"
 
 [tool.setuptools]
-package-dir = {"" = "src"}
 packages = ["oidcheck"]

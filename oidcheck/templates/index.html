@@ -11,6 +11,7 @@
         <h1>Flask OIDC Config Validator</h1>
         <p>Paste your .env or config file content below to validate it.</p>
         <form method="POST">
+            {{ csrf_token() }}
             <textarea name="config" rows="10" cols="80">{{ config_text }}</textarea>
             <br>
             <button type="submit">Validate</button>

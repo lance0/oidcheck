@@ -12,7 +12,7 @@ def main():
     parser.add_argument("--strict", action="store_true", help="Exit with a non-zero status code on validation warnings")
     args = parser.parse_args()
 
-    config_values = {k.lower(): v for k, v in dotenv_values(args.file).items()}
+    config_values = dotenv_values(args.file)
     config = AppConfig(**config_values)
 
     results = validate_config(config)

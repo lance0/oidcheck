@@ -63,10 +63,11 @@ def test_debug_log_level(base_config, mocker):
 
 def test_gcc_high_authority_mismatch(base_config, mocker):
     mocker.patch("msal.ConfidentialClientApplication")
-    base_config["authority"] = "https://login.microsoftonline.us/test-tenant-id.com"
+    base_config["authority"] = "https://login.microsoftonline.com/test-tenant-id"
+    base_config["tenant_id"] = "tenant.onmicrosoft.us"  # GCC-High tenant
     config = AppConfig(**base_config)
     results = validate_config(config)
-    assert any("mix GCC-High and commercial endpoints" in r["message"] for r in results)
+    assert any("US Government environment" in r["message"] for r in results)
 
 def test_missing_openid_scope(base_config, mocker):
     mocker.patch("msal.ConfidentialClientApplication")
