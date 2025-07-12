@@ -32,8 +32,8 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/lancetuller/flask-oidc-config-validator"
-"Bug Tracker" = "https://github.com/lancetuller/flask-oidc-config-validator/issues"
+"Homepage" = "https://github.com/lance0/oidcheck"
+"Bug Tracker" = "https://github.com/lance0/oidcheck/issues"
 
 [project.scripts]
 oidcheck = "oidcheck.main:main"
