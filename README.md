@@ -36,8 +36,8 @@ A CLI and web-based tool to validate `.env` or configuration settings for Flask 
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
-    cd flask-oidc-config-validator
+    git clone https://github.com/lance0/oidcheck
+    cd oidcheck
     ```
 
 2.  **Create and activate a virtual environment:**
@@ -225,8 +225,8 @@ This project is licensed under the MIT License. See LICENSE file for details.
 
 ## 🔗 Links
 
-- **Homepage**: https://github.com/lancetuller/flask-oidc-config-validator
-- **Bug Tracker**: https://github.com/lancetuller/flask-oidc-config-validator/issues
+- **Homepage**: https://github.com/lance0/oidcheck
+- **Bug Tracker**: https://github.com/lance0/oidcheck/issues
 
 ## 📈 Recent Updates
 
