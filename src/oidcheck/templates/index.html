@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask OIDC Config Validator</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Flask OIDC Config Validator</h1>
+        <p>Paste your .env or config file content below to validate it.</p>
+        <form method="POST">
+            <textarea name="config" rows="10" cols="80">{{ config_text }}</textarea>
+            <br>
+            <button type="submit">Validate</button>
+        </form>
+
+        {% if results %}
+        <h2>Validation Results</h2>
+        <ul class="results">
+            {% for result in results %}
+            <li class="result-{{ result.level.lower() }}">
+                <strong>{{ result.level }}</strong>: {{ result.message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

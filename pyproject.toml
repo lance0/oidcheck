@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flask-oidc-config-validator"
+version = "0.1.0"
+authors = [
+  { name="Lance Tuller", email="lancetuller@gmail.com" },
+]
+description = "A CLI and web-based tool to validate OIDC configuration for Flask applications, especially for Azure GCC-High environments."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Framework :: Flask",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "Flask",
+    "python-dotenv",
+    "msal",
+    "pydantic",
+    "pydantic-settings",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/lancetuller/flask-oidc-config-validator"
+"Bug Tracker" = "https://github.com/lancetuller/flask-oidc-config-validator/issues"
+
+[project.scripts]
+oidcheck = "oidcheck.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["oidcheck"]

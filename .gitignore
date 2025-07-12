@@ -1,0 +1,11 @@
+# Virtual Environment
+venv/
+__pycache__/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Test files
+.env.test
