@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flask-oidc-config-validator"
-version = "0.1.0"
+version = "1.0.0"
 authors = [
   { name="Lance Tuller", email="lancetuller@gmail.com" },
 ]
@@ -29,6 +29,15 @@ dependencies = [
     "pydantic-settings",
     "flask-limiter",
     "flask-wtf",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-mock",
+    "black",
+    "flake8",
+    "mypy",
 ]
 
 [project.urls]

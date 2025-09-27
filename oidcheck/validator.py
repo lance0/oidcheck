@@ -4,7 +4,7 @@ import msal
 import asyncio
 from typing import List, Dict, Any
 
-def validate_config(config: AppConfig):
+def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
     """
     Validates the OIDC configuration using a Pydantic model.
     """
@@ -60,9 +60,10 @@ def validate_config(config: AppConfig):
         results.append({"level": "WARNING", "message": "REDIRECT_URI is not using HTTPS. This is not secure."})
 
     # 4. Scope validation
-    if "openid" not in config.scope:
+    scope_list: List[str] = config.scope if config.scope is not None else []
+    if "openid" not in scope_list:
         results.append({"level": "WARNING", "message": "SCOPE is missing 'openid'. This is required for OIDC."})
-    if "profile" not in config.scope:
+    if "profile" not in scope_list:
         results.append({"level": "WARNING", "message": "SCOPE is missing 'profile'. This is often needed to get user information."})
 
     # 5. Log Level
@@ -81,7 +82,7 @@ def validate_config(config: AppConfig):
                 client_credential=config.client_secret,
             )
             # This doesn't make a network call, just validates the authority format
-            flow = app.initiate_auth_code_flow(scopes=config.scope, redirect_uri=str(config.redirect_uri) if config.redirect_uri else None)
+            flow = app.initiate_auth_code_flow(scopes=scope_list, redirect_uri=str(config.redirect_uri) if config.redirect_uri else None)
             results.append({"level": "INFO", "message": "Successfully initialized MSAL ConfidentialClientApplication."})
             results.append({"level": "INFO", "message": f"Generated Auth URL: {flow['auth_uri']}"})
 

@@ -3,7 +3,7 @@ import logging
 import json
 import sys
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict, Any, List, Optional
 
 
 class StructuredFormatter(logging.Formatter):
@@ -21,13 +21,13 @@ class StructuredFormatter(logging.Formatter):
         
         # Add extra fields if present
         if hasattr(record, 'user_ip'):
-            log_entry["user_ip"] = record.user_ip
+            log_entry["user_ip"] = record.user_ip  # type: ignore
         if hasattr(record, 'config_validation'):
-            log_entry["config_validation"] = record.config_validation
+            log_entry["config_validation"] = record.config_validation  # type: ignore
         if hasattr(record, 'validation_results'):
-            log_entry["validation_results"] = record.validation_results
+            log_entry["validation_results"] = record.validation_results  # type: ignore
         if hasattr(record, 'request_id'):
-            log_entry["request_id"] = record.request_id
+            log_entry["request_id"] = record.request_id  # type: ignore
             
         return json.dumps(log_entry)
 
@@ -51,11 +51,11 @@ def setup_structured_logging(log_level: str = "INFO") -> logging.Logger:
     return logger
 
 
-def log_validation_event(logger: logging.Logger, 
-                        user_ip: str, 
-                        config_source: str,
-                        results: list,
-                        request_id: str = None):
+def log_validation_event(logger: logging.Logger,
+                         user_ip: str,
+                         config_source: str,
+                         results: List[Dict[str, Any]],
+                         request_id: Optional[str] = None) -> None:
     """
     Log a configuration validation event with structured data.
     """

@@ -1,11 +1,14 @@
 # oidcheck/main.py
 import argparse
 import json
-from .validator import validate_config
+import sys
+import asyncio
+from typing import List, Dict, Any, cast
+from .validator import validate_config_async
 from .models import AppConfig
 from dotenv import dotenv_values
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Flask OIDC Config Validator")
     parser.add_argument("--file", "-f", default=".env", help="Path to the configuration file (e.g., .env)")
     parser.add_argument("--json", action="store_true", help="Output validation results in JSON format")
@@ -13,9 +16,11 @@ def main():
     args = parser.parse_args()
 
     config_values = dotenv_values(args.file)
-    config = AppConfig(**config_values)
+    # Filter out None values and let Pydantic handle defaults and type conversion
+    filtered_values = {k: v for k, v in config_values.items() if v is not None}
+    config = AppConfig(**filtered_values)  # type: ignore
 
-    results = validate_config(config)
+    results = asyncio.run(validate_config_async(config))
 
     if args.json:
         print(json.dumps(results, indent=2))
