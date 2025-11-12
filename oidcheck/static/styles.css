@@ -1,7 +1,8 @@
 body {
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     margin: 20px;
+    color: #333;
 }
 
 .container {
@@ -10,26 +11,81 @@ body {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+    body {
+        margin: 10px;
+    }
+    
+    .container {
+        padding: 15px;
+        border-radius: 0;
+    }
+    
+    textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        margin: 5px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 200px;
+    box-sizing: border-box;
 }
 
 button {
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
     background-color: #007bff;
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+button:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+}
+
+button:active {
+    transform: translateY(1px);
 }
 
 .results {
@@ -63,10 +119,47 @@ button:hover {
 }
 
 .flash-error {
-    color: #dc3545;
+    color: #721c24;
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
-    padding: 10px;
+    padding: 12px;
     border-radius: 4px;
     margin-bottom: 10px;
+    border-left: 4px solid #dc3545;
+}
+
+.flash-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border-left: 4px solid #ffc107;
+}
+
+.flash-success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    border-left: 4px solid #28a745;
+}
+
+/* Improved accessibility */
+.result-error,
+.result-warning,
+.result-info {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+/* Focus indicators for better keyboard navigation */
+textarea:focus,
+button:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }

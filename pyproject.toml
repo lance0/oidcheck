@@ -35,6 +35,7 @@ dependencies = [
 dev = [
     "pytest",
     "pytest-mock",
+    "pytest-cov",
     "black",
     "flake8",
     "mypy",
@@ -49,3 +50,31 @@ oidcheck = "oidcheck.main:main"
 
 [tool.setuptools]
 packages = ["oidcheck"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=oidcheck --cov-report=term-missing --cov-fail-under=80"
+testpaths = [
+    "tests",
+]
+
+[tool.coverage.run]
+source = ["oidcheck"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

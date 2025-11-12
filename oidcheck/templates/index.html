@@ -7,36 +7,52 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Flask OIDC Config Validator</h1>
-        <p>Paste your .env or config file content below to validate it.</p>
+    <main class="container">
+        <header>
+            <h1>Flask OIDC Config Validator</h1>
+            <p>Paste your .env or config file content below to validate it.</p>
+        </header>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="flash-messages">
+        <section class="flash-messages" role="alert" aria-live="polite">
             {% for category, message in messages %}
-            <div class="flash-{{ category }}">{{ message }}</div>
+            <div class="flash-{{ category }}" role="alert">{{ message }}</div>
             {% endfor %}
-        </div>
+        </section>
         {% endif %}
         {% endwith %}
-        <form method="POST">
-            {{ csrf_token() }}
-            <textarea name="config" rows="10" cols="80">{{ config_text }}</textarea>
-            <br>
-            <button type="submit">Validate</button>
-        </form>
+        
+        <section>
+            <form method="POST" novalidate>
+                {{ csrf_token() }}
+                <label for="config-input">Configuration Content:</label>
+                <textarea 
+                    id="config-input" 
+                    name="config" 
+                    rows="10" 
+                    cols="80"
+                    placeholder="CLIENT_ID=your-client-id&#10;CLIENT_SECRET=your-client-secret&#10;TENANT_ID=your-tenant-id&#10;AUTHORITY=https://login.microsoftonline.com/your-tenant-id&#10;REDIRECT_URI=https://localhost:5000/getAToken&#10;SCOPE=openid profile email"
+                    aria-describedby="config-help">{{ config_text }}</textarea>
+                <small id="config-help">Enter your OIDC configuration in .env format (one variable per line)</small>
+                <br>
+                <button type="submit" aria-label="Validate configuration">Validate Configuration</button>
+            </form>
+        </section>
 
         {% if results %}
-        <h2>Validation Results</h2>
-        <ul class="results">
-            {% for result in results %}
-            <li class="result-{{ result.level.lower() }}">
-                <strong>{{ result.level }}</strong>: {{ result.message }}
-            </li>
-            {% endfor %}
-        </ul>
+        <section aria-labelledby="results-heading">
+            <h2 id="results-heading">Validation Results</h2>
+            <ul class="results" role="list">
+                {% for result in results %}
+                <li class="result-{{ result.level.lower() }}" role="listitem">
+                    <span class="result-level" aria-label="{{ result.level }} level">{{ result.level }}</span>: 
+                    <span class="result-message">{{ result.message }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
         {% endif %}
-    </div>
+    </main>
 </body>
 </html>

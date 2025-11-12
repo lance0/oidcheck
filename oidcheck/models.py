@@ -1,9 +1,9 @@
 # oidcheck/models.py
-from pydantic import BaseModel, HttpUrl, model_validator, ConfigDict
+from pydantic import BaseModel, HttpUrl, model_validator
 from typing import Optional, List
 
-class AppConfig(BaseModel):
 
+class AppConfig(BaseModel):
     client_id: Optional[str] = None
     client_secret: Optional[str] = None
     tenant_id: Optional[str] = None
@@ -12,7 +12,7 @@ class AppConfig(BaseModel):
     scope: Optional[List[str]] = None
     log_level: str = "INFO"
 
-    @model_validator(mode='before')
+    @model_validator(mode="before")
     def split_scope(cls, values):
         if "scope" in values and isinstance(values["scope"], str):
             values["scope"] = values["scope"].split()

@@ -7,7 +7,9 @@ import json
 from typing import List, Dict, Any, Optional
 
 
-def format_validation_results(results: List[Dict[str, Any]], output_format: str = "text") -> str:
+def format_validation_results(
+    results: List[Dict[str, Any]], output_format: str = "text"
+) -> str:
     """
     Format validation results for different output formats.
 
@@ -24,10 +26,14 @@ def format_validation_results(results: List[Dict[str, Any]], output_format: str 
         html_parts = []
         for result in results:
             level_class = f"result-{result['level'].lower()}"
-            html_parts.append(f'<div class="{level_class}"><strong>{result["level"]}</strong>: {result["message"]}</div>')
+            html_parts.append(
+                f'<div class="{level_class}"><strong>{result["level"]}</strong>: {result["message"]}</div>'
+            )
         return "\n".join(html_parts)
     else:  # text format
-        return "\n".join(f"[{result['level']}] {result['message']}" for result in results)
+        return "\n".join(
+            f"[{result['level']}] {result['message']}" for result in results
+        )
 
 
 def load_config_from_file(file_path: str) -> Dict[str, Optional[str]]:
@@ -43,4 +49,5 @@ def load_config_from_file(file_path: str) -> Dict[str, Optional[str]]:
         Dictionary of configuration key-value pairs
     """
     from dotenv import dotenv_values
+
     return dotenv_values(file_path)
