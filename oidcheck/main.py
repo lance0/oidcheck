@@ -13,20 +13,22 @@ def main() -> None:
         "--file",
         "-f",
         default=".env",
-        help="Path to the configuration file (e.g., .env)",
+        help="Path to configuration file (e.g., .env)",
     )
     parser.add_argument(
-        "--json", action="store_true", help="Output validation results in JSON format"
+        "--json",
+        action="store_true",
+        help="Output validation results in JSON format",
     )
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="Exit with a non-zero status code on validation warnings",
+        help="Exit with non-zero status on validation warnings",
     )
     args = parser.parse_args()
 
     config_values = dotenv_values(args.file)
-    # Filter out None values and let Pydantic handle defaults and type conversion
+    # Filter out None values and let Pydantic handle defaults
     filtered_values = {k: v for k, v in config_values.items() if v is not None}
     config = AppConfig(**filtered_values)  # type: ignore
 

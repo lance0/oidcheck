@@ -3,6 +3,7 @@
 """
 Utility functions for oidcheck.
 """
+
 import json
 from typing import List, Dict, Any, Optional
 
@@ -27,7 +28,8 @@ def format_validation_results(
         for result in results:
             level_class = f"result-{result['level'].lower()}"
             html_parts.append(
-                f'<div class="{level_class}"><strong>{result["level"]}</strong>: {result["message"]}</div>'
+                f'<div class="{level_class}"><strong>{result["level"]}</strong>: '
+                f"{result['message']}</div>"
             )
         return "\n".join(html_parts)
     else:  # text format

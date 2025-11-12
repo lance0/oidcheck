@@ -1,7 +1,6 @@
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import os
-from oidcheck.server import app, validate_environment
+from oidcheck.server import validate_environment
 
 
 def test_validate_environment_missing_required():

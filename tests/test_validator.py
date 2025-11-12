@@ -39,7 +39,7 @@ def test_missing_client_id(base_config, mocker):
     mock_msal_app = mocker.patch("msal.ConfidentialClientApplication")
     base_config["client_id"] = None
     config = AppConfig(**base_config)
-    results = validate_config(config)
+    validate_config(config)
     # We expect our validator to catch this before even calling MSAL
     assert not mock_msal_app.called
 

@@ -1,7 +1,6 @@
 import pytest
 from oidcheck.main import main
-from unittest.mock import patch, MagicMock
-import sys
+from unittest.mock import patch
 from io import StringIO
 
 

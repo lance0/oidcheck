@@ -38,14 +38,16 @@ def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
             results.append(
                 {
                     "level": "ERROR",
-                    "message": "Authority mixes commercial (.com) and US Government (.us) endpoints.",
+                    "message": "Authority mixes commercial (.com) and US Government "
+                    "(.us) endpoints.",
                 }
             )
         elif not is_commercial and not is_us_gov:
             results.append(
                 {
                     "level": "WARNING",
-                    "message": "Authority does not appear to be a standard Microsoft public cloud endpoint.",
+                    "message": "Authority does not appear to be a standard Microsoft "
+                    "public cloud endpoint.",
                 }
             )
 
@@ -70,14 +72,16 @@ def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
                 results.append(
                     {
                         "level": "ERROR",
-                        "message": "Tenant ID appears to be for a US Government environment, but the authority is not a .us endpoint.",
+                        "message": "Tenant ID appears to be for a US Government environment, "
+                        "but the authority is not a .us endpoint.",
                     }
                 )
             elif not tenant_is_gov and is_us_gov:
                 results.append(
                     {
                         "level": "WARNING",
-                        "message": "Authority is a US Government endpoint, but the tenant ID does not appear to be a standard US Government tenant.",
+                        "message": "Authority is a US Government endpoint, but the tenant ID "
+                        "does not appear to be a standard US Government tenant.",
                     }
                 )
 
@@ -86,14 +90,16 @@ def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
                 results.append(
                     {
                         "level": "WARNING",
-                        "message": "Tenant appears to be DoD but authority may not be configured for DoD environment.",
+                        "message": "Tenant appears to be DoD but authority may not be "
+                        "configured for DoD environment.",
                     }
                 )
             elif tenant_is_gcc_high and not is_gcc_high:
                 results.append(
                     {
                         "level": "WARNING",
-                        "message": "Tenant appears to be GCC-High but authority may not be configured correctly.",
+                        "message": "Tenant appears to be GCC-High but authority may not be "
+                        "configured correctly.",
                     }
                 )
 
@@ -127,7 +133,8 @@ def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
         results.append(
             {
                 "level": "WARNING",
-                "message": "SCOPE is missing 'profile'. This is often needed to get user information.",
+                "message": "SCOPE is missing 'profile'. This is often needed to get "
+                "user information.",
             }
         )
 
@@ -136,7 +143,8 @@ def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
         results.append(
             {
                 "level": "WARNING",
-                "message": f"LOG_LEVEL is set to '{config.log_level}'. This may log sensitive information.",
+                "message": f"LOG_LEVEL is set to '{config.log_level}'. This may log "
+                f"sensitive information.",
             }
         )
 
@@ -144,7 +152,8 @@ def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
     results.append(
         {
             "level": "INFO",
-            "message": "For production, use a secure secret storage like Azure Key Vault instead of .env files.",
+            "message": "For production, use a secure secret storage like Azure Key Vault "
+            "instead of .env files.",
         }
     )
 
@@ -168,12 +177,18 @@ def validate_config(config: AppConfig) -> List[Dict[str, Any]]:
                 }
             )
             results.append(
-                {"level": "INFO", "message": f"Generated Auth URL: {flow['auth_uri']}"}
+                {
+                    "level": "INFO",
+                    "message": f"Generated Auth URL: {flow['auth_uri']}",
+                }
             )
 
         except (ValueError, RuntimeError) as e:
             results.append(
-                {"level": "ERROR", "message": f"Failed to initialize MSAL client: {e}"}
+                {
+                    "level": "ERROR",
+                    "message": f"Failed to initialize MSAL client: {e}",
+                }
             )
         except Exception as e:
             results.append(

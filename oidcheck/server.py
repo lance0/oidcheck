@@ -16,7 +16,6 @@ app = Flask(__name__)
 def validate_environment():
     """Validate required environment variables at startup."""
     required_vars = []
-    optional_vars = ["FLASK_SECRET_KEY"]
 
     missing_vars = [var for var in required_vars if not os.environ.get(var)]
 
@@ -83,7 +82,7 @@ def health():
 
     # Check MSAL availability
     try:
-        import msal
+        import msal  # noqa: F401
 
         health_status["checks"]["msal"] = "ok"
     except ImportError:
@@ -111,7 +110,8 @@ def index() -> str:
         config_text = request.form.get("config", "")
         if len(config_text) > 10000:
             flash(
-                "Configuration is too large. Please limit to 10000 characters.", "error"
+                "Configuration is too large. Please limit to 10000 characters.",
+                "error",
             )
             return render_template(
                 "index.html", results=results, config_text=config_text
@@ -129,7 +129,11 @@ def index() -> str:
 
             # Log the validation event for audit trail
             log_validation_event(
-                logger, get_remote_address(), "web_form", results, g.correlation_id
+                logger,
+                get_remote_address(),
+                "web_form",
+                results,
+                g.correlation_id,
             )
 
         except ValidationError as e:
@@ -173,7 +177,7 @@ def index() -> str:
                 extra={
                     "user_ip": get_remote_address(),
                     "error": str(e),
-                    "request_id": str(uuid.uuid4()),
+                    "correlation_id": g.correlation_id,
                 },
             )
 

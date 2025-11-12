@@ -1,4 +1,3 @@
-import pytest
 from oidcheck.utils import format_validation_results, load_config_from_file
 from unittest.mock import patch
 
