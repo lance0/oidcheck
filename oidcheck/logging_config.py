@@ -67,8 +67,12 @@ def log_validation_event(
             "user_ip": user_ip,
             "config_validation": {
                 "source": config_source,
-                "error_count": len([r for r in results if r["level"] == "ERROR"]),  # noqa: E501
-                "warning_count": len([r for r in results if r["level"] == "WARNING"]),  # noqa: E501
+                "error_count": len(
+                    [r for r in results if r["level"] == "ERROR"]
+                ),  # noqa: E501
+                "warning_count": len(
+                    [r for r in results if r["level"] == "WARNING"]
+                ),  # noqa: E501
                 "info_count": len([r for r in results if r["level"] == "INFO"]),
             },
             "validation_results": results,
